@@ -1,9 +1,17 @@
+// Floyd-Warshall Algorithm in C
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h> 
 
+// defining the number of vertices
+
+
+#define INF 999
 #define maximoMatriz 100
+
+
 
 int qntVertices;
 int qntArestas;
@@ -116,10 +124,46 @@ void floydWarshall(int solucaoToda) {
 }
 
 
-int main() {
- 
-  lerArquivos();
-  floydWarshall(1);
+int main(int argc, char **argv) {
+    int opt;
+    lerArquivos();
+    floydWarshall(1);
     
+    int mostrarSolucao = 0;
+    int numInicial = -1;
+    int numFinal = -1;
+    while( (opt = getopt(argc, argv, "ho:f:si:l:")) > 0 ) {
+        switch ( opt ) {
+            case 'h':
+                printf("-h Guia de ajuda do algoritmo de Prim\n");
+                printf("-o <arquivo> : redireciona a saida para o arquivo\n");
+                printf("-f <arquivo> : indica o arquivo que contém o grafo de entrada\n");
+                printf("-s : mostra a solução (em ordem crescente)\n");
+                printf("-i : vértice inicial (dependendo do algoritmo)\n");
+                printf("-l : vértice final (dependendo do algoritmo)\n");
+                break;
+            case 'o': ;
+                char *nomeArquivoSaida = optarg;
+                break ;
+            case 'f': ;
+                char *nomeArquivoEntrada = optarg;
+                break ;
+            case 's': 
+                mostrarSolucao = 1;
+                printf("opcao s\n");
+                break ;
+            case 'i': ;
+                
+                numInicial = atoi(optarg);
+                break ;
+            case 'l': ;
+                numFinal = atoi(optarg);
+                break ;
+            
+            default:
+                printf("-h para help");
+        }
+    }
         
 }
+
