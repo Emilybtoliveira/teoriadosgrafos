@@ -1,14 +1,8 @@
-// Floyd-Warshall Algorithm in C
 
 #include <stdio.h>
 
-// defining the number of vertices
 
-
-#define INF 999
 #define maximoMatriz 100
-
-
 
 int qntVertices;
 int qntArestas;
