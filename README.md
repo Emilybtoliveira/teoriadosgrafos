@@ -59,7 +59,7 @@ make
 
 A partir do guia de ajuda, teste o algoritmo adicionando os parâmetros desejados.
 
-<p align="center" style="background: #363636"></br><b>Observação:</b> deve ser obedecida a ordem dos parâmetros de acordo com a precedencia abaixo. O parâmetro -l é opicional e para visualizar a saída é obrigatório usar os parâmetros -s ou -o.<br></br> </p>
+<p align="center" style="background: #363636"></br><b>Observação:</b> deve ser obedecida a ordem dos parâmetros de acordo com a precedencia abaixo. O parâmetro **-l** é opicional e para visualizar a saída é obrigatório usar os parâmetros **-s** ou **-o**.<br></br> </p>
 
 ```bash
 -f 'arquivoentrada.txt' -i vertice_inicial -o 'arquivosaida.txt' //ou -s
