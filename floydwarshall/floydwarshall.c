@@ -7,11 +7,8 @@
 
 // defining the number of vertices
 
-
 #define INF 999
 #define maximoMatriz 100
-
-
 
 int qntVertices;
 int qntArestas;
@@ -41,9 +38,7 @@ int setMatrizAdj(int hasPeso){
             
             matrizAdjNova[valor1-1][valor2-1] = 1; 
         }
-    }
-
-    
+    }    
 }
 
 

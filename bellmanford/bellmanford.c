@@ -43,8 +43,7 @@ int lerArquivos(){
     qntArestas = arrayVerticeAresta[1];
 
     for (int i=0;i<(qntArestas*3);i++){
-        fscanf(arq, "%d ", &numberArray[i]);
-        
+        fscanf(arq, "%d ", &numberArray[i]);        
     }
     
     int hasPeso = numberArray[(qntArestas*3)-1]!=0; // se for 1 = true; 0 = false
