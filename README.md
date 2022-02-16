@@ -14,7 +14,7 @@
 - Bellman-Ford
 
 ### Como rodar
-
+<br></br>
 **Djikstra**
 
 Navegue pelo terminal até a pasta do projeto. No caminho `/teoriadosgrafos/djikstra`, execute os seguintes comandos:
@@ -25,7 +25,7 @@ make
 ```
 
 A partir do guia de ajuda, teste o algoritmo adicionando os parâmetros desejados.
-
+<br></br>
 **Floyd-Warshall**
 
 Navegue pelo terminal até a pasta do projeto. No caminho `/teoriadosgrafos/floydwarshall`, execute os seguintes comandos:
@@ -36,7 +36,7 @@ make
 ```
 
 A partir do guia de ajuda, teste o algoritmo adicionando os parâmetros desejados.
-
+<br></br>
 **Kruskal**
 
 Navegue pelo terminal até a pasta do projeto. No caminho `/teoriadosgrafos/kruskal`, execute os seguintes comandos:
@@ -47,7 +47,7 @@ make
 ```
 
 A partir do guia de ajuda, teste o algoritmo adicionando os parâmetros desejados.
-
+<br></br>
 **Bellman-Ford**
 
 Navegue pelo terminal até a pasta do projeto. No caminho `/teoriadosgrafos/bellmanford`, execute os seguintes comandos:
