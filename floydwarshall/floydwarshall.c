@@ -1,21 +1,15 @@
-// Floyd-Warshall Algorithm in C
-
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <unistd.h> 
 
-// defining the number of vertices
 
-#define INF 999
 #define maximoMatriz 100
 
 int qntVertices;
 int qntArestas;
 int matrizAdjNova[maximoMatriz][maximoMatriz];
 int numberArray[maximoMatriz];
-int listaAdj[maximoMatriz];
-
 
 int setMatrizAdj(int hasPeso){
     
@@ -38,16 +32,18 @@ int setMatrizAdj(int hasPeso){
             
             matrizAdjNova[valor1-1][valor2-1] = 1; 
         }
-    }    
+    }
+
+    
 }
 
 
-int lerArquivos(){
+int lerArquivos(char *nomeArquivoEntrada){
     FILE *arq;
 
     
     int arrayVerticeAresta[60];
-    arq = fopen("entradafloyd.txt", "rt");
+    arq = fopen(nomeArquivoEntrada, "rt");
 
     for (int i=0;i<2;i++){
         fscanf(arq, "%d ", &arrayVerticeAresta[i]);
@@ -70,14 +66,6 @@ int lerArquivos(){
   fclose(arq);
 }
 
-void escreverArquivoResultado(){
-    FILE *arq;
-
-    arq = fopen("saidafloyd.txt", "w");
-
-    // fprintf(arq, "%s", palavra);
-
-}
 
 void printarMatrizNova(){
 
@@ -92,66 +80,103 @@ void printarMatrizNova(){
 void printarSolucaoToda(){
     for (int i=0;i<qntVertices;i++)
 	  for (int j=0;j<qntVertices;j++) {
-        printf("<%d,%d>=%d\n",i+1,j+1,matrizAdjNova[i][j]);
+        printf("%d,%d=%d\n",i+1,j+1,matrizAdjNova[i][j]);
 	}
 }
 
+void printarNoArquivo(char *nomeArquivoSaida, int solCompleta){
+    if(solCompleta){
+         FILE *arq;
 
-void floydWarshall(int solucaoToda) {
+        arq = fopen(nomeArquivoSaida, "w");
+        for (int i=0;i<qntVertices;i++)
+            for (int j=0;j<qntVertices;j++) {
+                fprintf(arq,"%d,%d=%d\n",i+1,j+1,matrizAdjNova[i][j]);
+            }
+        fclose(arq);
+        
+    }else{
+        FILE *arq;
+
+        arq = fopen(nomeArquivoSaida, "w");
+
+        for (int i = 0; i < qntVertices; i++) {
+            for (int j = 0; j < qntVertices; j++) {
+                fprintf(arq,"%d ",matrizAdjNova[i][j]);
+            }
+            fprintf(arq,"\n");
+        }
+        
+        fclose(arq);
+    }
+}
+
+void floydWarshall(int solCompleta,int temArquivoSaida, char *nomeArquivoSaida, char *nomeArquivoEntrada) {
+
+    lerArquivos(nomeArquivoEntrada);
     for(int x = 0; x < qntVertices; x++) {
         for(int i = 0; i < qntVertices; i++) {
             for (int j = 0; j < qntVertices; j++) {
                 int soma = matrizAdjNova[i][x] + matrizAdjNova[x][j];
-                    if (matrizAdjNova[i][j] > soma){
-                        matrizAdjNova[i][j] = soma;
-                    }
+                if(matrizAdjNova[i][j] > soma){
+                    matrizAdjNova[i][j] = soma;
+                }
             }
         }
     }
-    printarMatrizNova();
-    if(solucaoToda){
-        printarSolucaoToda();
+   
+
+    if(temArquivoSaida==0){
+        
+        if(solCompleta){
+            printarSolucaoToda();
+        }
+        else{
+            printarMatrizNova();
+        }
+
+    }else{
+        printarNoArquivo(nomeArquivoSaida,solCompleta);
     }
-  
     
-  printf("\n");
+  
   
 }
 
 
 int main(int argc, char **argv) {
     int opt;
-    lerArquivos();
-    floydWarshall(1);
-    
     int mostrarSolucao = 0;
     int numInicial = -1;
     int numFinal = -1;
+    char *nomeArquivoSaida;
+    char *nomeArquivoEntrada;
+    int temArquivoSaida = 0;
     while( (opt = getopt(argc, argv, "ho:f:si:l:")) > 0 ) {
         switch ( opt ) {
             case 'h':
-                printf("-h Guia de ajuda do algoritmo de Prim\n");
+                printf("-h Guia de ajuda do algoritmo de BellmanFord\n");
                 printf("-o <arquivo> : redireciona a saida para o arquivo\n");
                 printf("-f <arquivo> : indica o arquivo que contém o grafo de entrada\n");
                 printf("-s : mostra a solução (em ordem crescente)\n");
                 printf("-i : vértice inicial (dependendo do algoritmo)\n");
                 printf("-l : vértice final (dependendo do algoritmo)\n");
                 break;
-            case 'o': ;
-                char *nomeArquivoSaida = optarg;
+            case 'o':
+                nomeArquivoSaida = optarg;
+                temArquivoSaida = 1;
                 break ;
-            case 'f': ;
-                char *nomeArquivoEntrada = optarg;
+            case 'f':
+                nomeArquivoEntrada = optarg;
                 break ;
             case 's': 
                 mostrarSolucao = 1;
-                printf("opcao s\n");
                 break ;
-            case 'i': ;
+            case 'i':
                 
-                numInicial = atoi(optarg);
+                numInicial = atoi(optarg)-1;
                 break ;
-            case 'l': ;
+            case 'l':
                 numFinal = atoi(optarg);
                 break ;
             
@@ -159,6 +184,11 @@ int main(int argc, char **argv) {
                 printf("-h para help");
         }
     }
+
+    
+    floydWarshall(mostrarSolucao,temArquivoSaida,nomeArquivoSaida,nomeArquivoEntrada);
+    
+
         
 }
 
